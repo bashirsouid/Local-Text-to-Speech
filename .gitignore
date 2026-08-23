@@ -1,0 +1,5 @@
+.tools/
+*.wav
+*.txt
+*.md
+!README.md
