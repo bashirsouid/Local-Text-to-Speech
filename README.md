@@ -1,7 +1,9 @@
-# kokoro-tts
+# Local Text to Speech
 
 Fully local, self-bootstrapping Kokoro-82M text-to-speech. Apache 2.0 model,
 runs on CPU, ~330MB weights auto-downloaded on first run (offline after that).
+
+On a standard consumer laptop, you can expect generation at roughly 2x real-time talking speed.
 
 ## Quick start
 
