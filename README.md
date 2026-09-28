@@ -15,6 +15,7 @@ On a standard consumer laptop, you can expect generation at roughly 2x real-time
 
 - `.txt` — plain text
 - `.md` / `.markdown` — Markdown (tables skipped by default, code fences omitted by default; configurable via `--markdown`, `--skip-tables`, `--read-code`)
+- A directory — all `.md`/`.markdown` files in sorted order, producing one WAV beside each file; use `--single-file` to combine them into one WAV.
 
 ## Daily use
 
@@ -23,9 +24,14 @@ On a standard consumer laptop, you can expect generation at roughly 2x real-time
     tts --voice af_bella --speed 1.1 article.txt
     tts -o out/talk.wav talk.txt
     tts --resume longbook.txt   # resume an interrupted run from checkpoints
+    tts notes/                    # notes/one.wav, notes/two.wav, ...
+    tts --single-file notes/ -o notes.wav
 
 Flags: --voice --lang --speed --max-chars --device cpu|cuda
-       --keep-segments --resume -o/--output
+       --keep-segments --resume --single-file -o/--output
+
+For directory input, `-o/--output` names the output directory in normal mode,
+or the combined WAV path with `--single-file`.
 
 ## Layout
 

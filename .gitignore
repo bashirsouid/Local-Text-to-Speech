@@ -3,3 +3,4 @@
 *.txt
 *.md
 !README.md
+status.json

@@ -5,11 +5,12 @@ PYTHON="${VIRTUAL_ENV:-$ROOT/.venv}/bin/python"
 
 usage() {
   cat <<'EOF'
-Usage: tts [options] INPUT.txt|INPUT.md
+Usage: tts [options] INPUT.txt|INPUT.md|DIRECTORY
 
-Defaults: INPUT.wav beside input, af_heart voice, speed 1.0, 400-char chunks.
+Defaults: INPUT.wav beside a file input, or one WAV per Markdown file beside a
+directory input. Uses af_heart voice, speed 1.0, and 400-char chunks.
 Options:
-  -o, --output FILE       Output WAV path
+  -o, --output PATH       Output WAV path, or output directory for folder input
   -v, --voice NAME        Voice (default: af_heart)
   -s, --speed NUMBER      Speech speed (default: 1.0)
   -c, --max-chars NUMBER  Target maximum characters per chunk (default: 400)
@@ -17,6 +18,7 @@ Options:
       --markdown MODE     auto, on, or off (default: auto)
       --skip-tables       Do not speak Markdown tables
       --read-code         Read fenced code rather than omit it
+      --single-file       For a directory, combine all Markdown files into one WAV
       --resume            Resume compatible interrupted synthesis
       --keep-segments     Keep checkpoint WAVs and status JSON after success
   -h, --help              Show this help
@@ -27,7 +29,7 @@ args=()
 while (($#)); do
   case "$1" in
     -o|--output|-v|--voice|-s|--speed|-c|--max-chars|-d|--device|--markdown) [[ $# -ge 2 ]] || { echo "missing value for $1" >&2; exit 2; }; args+=("$1" "$2"); shift 2 ;;
-    --skip-tables|--read-code|--resume|--keep-segments) args+=("$1"); shift ;;
+    --skip-tables|--read-code|--single-file|--resume|--keep-segments) args+=("$1"); shift ;;
     -h|--help) usage; exit 0 ;;
     --) shift; args+=("$@"); break ;;
     -*) echo "unknown option: $1" >&2; usage >&2; exit 2 ;;
